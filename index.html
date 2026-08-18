@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeetXPert — Your Biology Revision Command Center</title>
-<meta name="description" content="NeetXPert — a premium NEET Biology revision experience.">
+<title>NeetXPert — NEET Revision Command Center</title>
+<meta name="description" content="NeetXPert — a premium NEET Biology and Organic Chemistry revision experience.">
 <style>
   :root{
     --bg:#080b12;
@@ -182,6 +182,59 @@
     .badge{right:-5px}
     footer{gap:10px;flex-direction:column}
   }
+
+/* ===== CHAPTER LAUNCHER ===== */
+.explore-trigger{font-family:inherit;cursor:pointer}
+.explore-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:22px}
+.explore-modal.open{display:flex}
+.explore-backdrop{position:absolute;inset:0;background:rgba(3,6,9,.78);backdrop-filter:blur(18px)}
+.explore-card{
+ position:relative;width:min(720px,100%);max-height:min(760px,calc(100vh - 44px));overflow:auto;
+ border:1px solid rgba(111,142,153,.28);border-radius:24px;
+ background:
+ radial-gradient(circle at 90% 0%,rgba(98,226,207,.10),transparent 28%),
+ radial-gradient(circle at 0% 100%,rgba(129,155,255,.08),transparent 30%),
+ linear-gradient(145deg,#111922,#090e14);
+ box-shadow:0 35px 110px rgba(0,0,0,.65),0 0 80px rgba(98,226,207,.06);
+ animation:exploreIn .24s ease-out
+}
+@keyframes exploreIn{from{opacity:0;transform:translateY(15px) scale(.98)}to{opacity:1;transform:none}}
+.explore-card:before{
+ content:"";position:absolute;left:0;right:0;top:0;height:1px;
+ background:linear-gradient(90deg,transparent,#62e2cf,#e6bd68,transparent);opacity:.65
+}
+.explore-head{padding:25px 26px 18px;border-bottom:1px solid #202b35;display:flex;justify-content:space-between;gap:20px}
+.explore-kicker{font:800 9px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;color:#62e2cf;text-transform:uppercase}
+.explore-head h2{font:700 31px Georgia,"Times New Roman",serif;letter-spacing:-.04em;margin:7px 0 5px}
+.explore-head p{font-size:10px;line-height:1.65;color:#8c98a8;margin:0;max-width:510px}
+.explore-close{
+ flex:0 0 auto;width:34px;height:34px;border:1px solid #27343f;border-radius:10px;
+ background:#0d151d;color:#aab5c1;cursor:pointer;font-size:18px;line-height:1
+}
+.explore-close:hover{border-color:#477a72;color:#62e2cf}
+.chapter-list{padding:18px 20px 23px;display:grid;gap:10px}
+.chapter-link{
+ display:grid;grid-template-columns:45px 1fr auto;align-items:center;gap:13px;
+ text-decoration:none;color:inherit;border:1px solid #202c37;border-radius:15px;
+ padding:13px;background:rgba(12,19,27,.8);transition:.18s;position:relative;overflow:hidden
+}
+.chapter-link:before{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:var(--chapter,#62e2cf);opacity:.8}
+.chapter-link:hover{transform:translateX(3px);border-color:#3b5660;background:#101b24;box-shadow:0 10px 35px rgba(0,0,0,.25)}
+.chapter-icon{
+ width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
+ border:1px solid #30404b;background:#111b23;color:var(--chapter,#62e2cf);font-size:17px
+}
+.chapter-meta small{display:block;font:800 8px ui-monospace,SFMono-Regular,Menlo,monospace;color:#687688;letter-spacing:.1em;margin-bottom:4px}
+.chapter-meta strong{font:700 17px Georgia,"Times New Roman",serif}
+.chapter-meta span{display:block;color:#7f8b9a;font-size:9px;margin-top:3px}
+.chapter-go{font:800 9px ui-monospace,SFMono-Regular,Menlo,monospace;color:#d7e0e7}
+.explore-foot{padding:0 26px 21px;font:8px ui-monospace,SFMono-Regular,Menlo,monospace;color:#586777;letter-spacing:.06em}
+@media(max-width:600px){
+ .explore-modal{padding:12px}.explore-card{border-radius:19px}
+ .explore-head{padding:20px}.explore-head h2{font-size:27px}
+ .chapter-link{grid-template-columns:40px 1fr auto;padding:11px}.chapter-icon{width:38px;height:38px}
+}
+
 </style>
 </head>
 <body>
@@ -201,7 +254,8 @@
     </a>
     <nav>
       <a href="#features">Why NeetXPert</a>
-      <a href="disease&disorders.html">Case File</a>
+      <a href="disease&disorders.html">Biology Case File</a>
+      <a href="rxnmech&namerxn.html">Organic Chemistry</a>
     </nav>
   </header>
 
@@ -220,12 +274,16 @@
             Open Disease &amp; Disorders
             <span class="arrow">→</span>
           </a>
-          <a class="btn secondary" href="#features">Explore the system</a>
+          <a class="btn secondary" href="rxnmech&namerxn.html">
+            Open Reaction Mechanism
+            <span class="arrow">→</span>
+          </a>
+          <button class="btn secondary explore-trigger" type="button" id="exploreTrigger">Explore the system <span class="arrow">→</span></button>
         </div>
 
         <div class="mini-note">
           <span class="dot"></span>
-          Case File Vol. 1 · Diseases &amp; Disorders
+          Case File Vol. 1 · Biology &nbsp;·&nbsp; Chapter 02 · Organic Chemistry
         </div>
       </div>
 
@@ -233,23 +291,23 @@
         <div class="badge">NEET<br>READY</div>
         <div class="panel">
           <div class="panel-top">
-            <span class="case">NEETXPERT / CASE FILE 001</span>
+            <span class="case">NEETXPERT / REVISION COMMAND CENTER</span>
             <span class="status">● ACTIVE</span>
           </div>
-          <h2>Diseases &amp; Disorders</h2>
-          <p>Human physiology, genetics &amp; pathology — organised for rapid recall and exam-focused revision.</p>
+          <h2>Two chapters. One system.</h2>
+          <p>Biology case files and Organic Chemistry reaction maps — built for rapid recall, mechanism-first learning and exam-focused revision.</p>
 
           <div class="case-list">
-            <div class="case-row"><b>Genetic &amp; Chromosomal</b><span class="tag">HIGH YIELD</span></div>
-            <div class="case-row"><b>Infectious Diseases</b><span class="tag">VECTORS</span></div>
-            <div class="case-row"><b>Endocrine &amp; Metabolic</b><span class="tag">CONCEPTS</span></div>
-            <div class="case-row"><b>Cardiovascular</b><span class="tag">EXAM TRAPS</span></div>
+            <div class="case-row"><b>Diseases &amp; Disorders</b><span class="tag">BIOLOGY · CASE 001</span></div>
+            <div class="case-row"><b>Reaction Mechanism</b><span class="tag">CHEMISTRY · CH 02</span></div>
+            <div class="case-row"><b>Name Reactions</b><span class="tag">HIGH YIELD</span></div>
+            <div class="case-row"><b>Mechanism → Product → Recall</b><span class="tag">INTERACTIVE</span></div>
           </div>
 
           <div class="panel-bottom">
-            <div class="stat"><strong>45</strong><span>Conditions</span></div>
-            <div class="stat"><strong>7</strong><span>Systems</span></div>
-            <div class="stat"><strong>19</strong><span>Quiz Cases</span></div>
+            <div class="stat"><strong>45+</strong><span>Biology Cases</span></div>
+            <div class="stat"><strong>30+</strong><span>Named Reactions</span></div>
+            <div class="stat"><strong>15</strong><span>Reaction Boss Qs</span></div>
           </div>
         </div>
       </div>
@@ -276,8 +334,77 @@
 
   <footer>
     <span>NEETXPERT · REVISION COMMAND CENTER</span>
-    <span>CASE FILE VOL. 1</span>
+    <span>BIOLOGY · CASE 001 &nbsp;|&nbsp; ORGANIC CHEMISTRY · CH 02</span>
   </footer>
 </div>
+
+<!-- Chapter launcher -->
+<div class="explore-modal" id="exploreModal" aria-hidden="true">
+  <div class="explore-backdrop" id="exploreBackdrop"></div>
+  <section class="explore-card" role="dialog" aria-modal="true" aria-labelledby="exploreTitle">
+    <div class="explore-head">
+      <div>
+        <div class="explore-kicker">NEETXPERT · CHAPTER SELECT</div>
+        <h2 id="exploreTitle">Choose your next chapter.</h2>
+        <p>Jump straight into an interactive revision room. Every chapter keeps the same NeetXPert premium system while giving the subject its own visual identity.</p>
+      </div>
+      <button class="explore-close" id="exploreClose" type="button" aria-label="Close chapter menu">×</button>
+    </div>
+
+    <div class="chapter-list">
+      <a class="chapter-link" href="disease&disorders.html" style="--chapter:#819bff">
+        <div class="chapter-icon">⌁</div>
+        <div class="chapter-meta">
+          <small>BIOLOGY · CASE FILE 001</small>
+          <strong>Diseases &amp; Disorders</strong>
+          <span>Conditions · systems · symptoms · diagnosis · exam traps</span>
+        </div>
+        <div class="chapter-go">OPEN →</div>
+      </a>
+
+      <a class="chapter-link" href="rxnmech&namerxn.html" style="--chapter:#62e2cf">
+        <div class="chapter-icon">⚗</div>
+        <div class="chapter-meta">
+          <small>ORGANIC CHEMISTRY · CHAPTER 02</small>
+          <strong>Reaction Mechanism &amp; Name Reactions</strong>
+          <span>Mechanisms · reagents · products · name reactions · rapid-fire</span>
+        </div>
+        <div class="chapter-go">OPEN →</div>
+      </a>
+    </div>
+
+    <div class="explore-foot">MORE CHAPTERS CAN BE ADDED HERE AS THE NEETXPERT LIBRARY GROWS · PROGRESS IS SAVED PER CHAPTER</div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const trigger = document.getElementById('exploreTrigger');
+  const modal = document.getElementById('exploreModal');
+  const close = document.getElementById('exploreClose');
+  const backdrop = document.getElementById('exploreBackdrop');
+
+  function openExplore(){
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    close.focus();
+  }
+  function closeExplore(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    trigger.focus();
+  }
+
+  trigger.addEventListener('click', openExplore);
+  close.addEventListener('click', closeExplore);
+  backdrop.addEventListener('click', closeExplore);
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && modal.classList.contains('open')) closeExplore();
+  });
+})();
+</script>
+
 </body>
 </html>
